@@ -1,0 +1,818 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="icon" href="data:," />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>Brandon Gregory — EdTech Customer Success</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --page: #f4f6f7;
+      --paper: #ffffff;
+      --ink: #11222c;
+      --muted: #53646d;
+      --line: #ccd5d9;
+      --line-strong: #9dabb2;
+      --navy: #123347;
+      --navy-2: #1b485e;
+      --accent: #e95f36;
+      --accent-soft: #fff0ea;
+      --blue-soft: #e8f2f6;
+      --success: #1f6b52;
+      --shadow: 0 18px 50px rgba(17, 34, 44, .10);
+      --display: "Source Sans 3", sans-serif;
+      --mono: "IBM Plex Mono", monospace;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --page: #0d1519;
+        --paper: #142027;
+        --ink: #edf3f5;
+        --muted: #b2c0c6;
+        --line: #33454e;
+        --line-strong: #5a6c75;
+        --navy: #d7edf5;
+        --navy-2: #9fc8d9;
+        --accent: #ff7b55;
+        --accent-soft: #3a221c;
+        --blue-soft: #172c36;
+        --success: #72c9aa;
+        --shadow: 0 20px 60px rgba(0, 0, 0, .35);
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 0;
+      background: var(--page);
+      color: var(--ink);
+      font-family: var(--display);
+      font-size: 17px;
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+    button, a { font: inherit; }
+    a { color: inherit; }
+    button { color: inherit; }
+    :focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 70%, transparent); outline-offset: 3px; }
+
+    .skip {
+      position: absolute;
+      left: 1rem;
+      top: -5rem;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      padding: .65rem 1rem;
+      z-index: 50;
+    }
+    .skip:focus { top: 1rem; }
+
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: color-mix(in srgb, var(--page) 90%, transparent);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+    .nav-inner {
+      width: min(1160px, calc(100% - 40px));
+      margin: auto;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .nav-links { display: flex; gap: 1.4rem; align-items: center; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: .94rem;
+      font-weight: 600;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta {
+      text-decoration: none;
+      border: 0;
+      border-bottom: 2px solid var(--accent);
+      background: transparent;
+      color: var(--ink);
+      font-weight: 700;
+      padding: .2rem 0;
+      cursor: pointer;
+    }
+
+    main { overflow: clip; }
+    .wrap { width: min(1160px, calc(100% - 40px)); margin-inline: auto; }
+
+    .hero {
+      min-height: 710px;
+      display: grid;
+      align-items: center;
+      padding: 7rem 0 6rem;
+      position: relative;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0 max(-10vw, -150px) auto auto;
+      width: 42vw;
+      max-width: 520px;
+      height: 100%;
+      background-image: radial-gradient(var(--line-strong) .8px, transparent .8px);
+      background-size: 22px 22px;
+      opacity: .34;
+      pointer-events: none;
+      mask-image: linear-gradient(to bottom, transparent 4%, #000 28%, #000 68%, transparent 95%);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(280px, .7fr);
+      gap: clamp(3rem, 7vw, 7rem);
+      align-items: end;
+      position: relative;
+    }
+    .identity {
+      font-family: var(--mono);
+      color: var(--accent);
+      font-size: .82rem;
+      letter-spacing: .055em;
+      margin: 0 0 1.4rem;
+    }
+    h1 {
+      font-size: clamp(3.35rem, 7.3vw, 6.9rem);
+      line-height: .92;
+      letter-spacing: -.062em;
+      max-width: 900px;
+      margin: 0;
+      font-weight: 700;
+      text-wrap: balance;
+    }
+    .hero-deck {
+      max-width: 700px;
+      font-size: clamp(1.2rem, 2vw, 1.48rem);
+      line-height: 1.45;
+      color: var(--muted);
+      margin: 2rem 0 0;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 2.2rem; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .55rem;
+      min-height: 48px;
+      padding: .7rem 1.1rem;
+      text-decoration: none;
+      font-weight: 700;
+      border: 1px solid var(--navy);
+      background: var(--navy);
+      color: var(--page);
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .button.secondary { background: transparent; color: var(--ink); border-color: var(--line-strong); }
+    .button:hover { filter: brightness(1.08); }
+    .button svg { width: 18px; height: 18px; }
+
+    .impact-panel {
+      border-top: 5px solid var(--accent);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      padding: 1.6rem;
+      transform: translateY(1.5rem);
+    }
+    .impact-panel h2 {
+      margin: 0 0 1.2rem;
+      font-family: var(--mono);
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--muted);
+    }
+    .stat {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: .85rem;
+      align-items: baseline;
+      padding: 1rem 0;
+      border-top: 1px solid var(--line);
+    }
+    .stat:first-of-type { border-top: 0; }
+    .stat strong { font-size: 2rem; line-height: 1; color: var(--navy); letter-spacing: -.04em; }
+    .stat span { color: var(--muted); font-size: .95rem; }
+
+    .band { background: var(--navy); color: var(--page); }
+    @media (prefers-color-scheme: dark) { .band { background: #d7edf5; color: #102029; } }
+    .band-grid {
+      padding: 2.7rem 0;
+      display: grid;
+      grid-template-columns: 1.15fr repeat(3, 1fr);
+      gap: 2rem;
+      align-items: start;
+    }
+    .band h2 { margin: 0; font-size: 1.1rem; letter-spacing: -.015em; }
+    .band-item { border-left: 1px solid color-mix(in srgb, currentColor 32%, transparent); padding-left: 1.2rem; }
+    .band-item strong { display: block; font-family: var(--mono); font-size: .78rem; margin-bottom: .35rem; }
+    .band-item span { opacity: .82; line-height: 1.35; display: block; }
+
+    section { scroll-margin-top: 85px; }
+    .section { padding: clamp(5rem, 9vw, 8.5rem) 0; }
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(180px, .55fr) 1.5fr;
+      gap: 2rem;
+      align-items: start;
+      padding-bottom: 2.1rem;
+      border-bottom: 1px solid var(--line-strong);
+    }
+    .section-label { font-family: var(--mono); color: var(--accent); font-size: .8rem; margin: .45rem 0 0; }
+    .section-head h2 {
+      font-size: clamp(2.3rem, 4.8vw, 4.35rem);
+      line-height: 1;
+      letter-spacing: -.045em;
+      margin: 0;
+      max-width: 800px;
+      text-wrap: balance;
+    }
+    .section-intro {
+      margin: 1.5rem 0 0;
+      color: var(--muted);
+      max-width: 760px;
+      font-size: 1.15rem;
+    }
+    .intro-shift { margin-left: calc((100% - 2rem) * .28); }
+
+    .cases { margin-top: 1rem; }
+    .case {
+      display: grid;
+      grid-template-columns: 80px minmax(0, 1fr) minmax(250px, .55fr);
+      gap: 2rem;
+      padding: 2.2rem 0;
+      border-bottom: 1px solid var(--line);
+      align-items: start;
+    }
+    .case-number { font-family: var(--mono); color: var(--accent); font-size: 1rem; padding-top: .35rem; }
+    .case h3 { font-size: clamp(1.55rem, 2.3vw, 2.15rem); line-height: 1.08; margin: 0 0 .7rem; letter-spacing: -.025em; }
+    .case p { margin: 0; color: var(--muted); max-width: 690px; }
+    .case-result { background: var(--blue-soft); padding: 1.25rem; border-radius: 2px 14px 2px 2px; }
+    .case-result strong { display: block; color: var(--success); font-family: var(--mono); font-size: .76rem; text-transform: uppercase; letter-spacing: .05em; margin-bottom: .5rem; }
+    .case-result p { color: var(--ink); font-size: .96rem; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: 1rem; }
+    .tag { font-family: var(--mono); font-size: .68rem; color: var(--muted); border: 1px solid var(--line); padding: .25rem .45rem; }
+
+    .samples-section { background: var(--paper); }
+    .sample-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      margin-top: 3rem;
+    }
+    .sample {
+      background: var(--paper);
+      padding: 2rem;
+      min-height: 330px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .sample-index { font-family: var(--mono); font-size: .75rem; color: var(--accent); }
+    .sample h3 { font-size: 1.55rem; line-height: 1.08; letter-spacing: -.02em; margin: 2.8rem 0 .8rem; }
+    .sample p { color: var(--muted); margin: 0 0 1.5rem; }
+    .text-button {
+      margin-top: auto;
+      padding: .2rem 0;
+      background: transparent;
+      border: 0;
+      border-bottom: 2px solid var(--accent);
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+      gap: clamp(3rem, 8vw, 7rem);
+      margin-top: 3.3rem;
+      align-items: start;
+    }
+    .profile-copy { font-size: 1.25rem; color: var(--muted); }
+    .profile-copy p { margin-top: 0; }
+    .profile-copy strong { color: var(--ink); }
+    .timeline { border-top: 1px solid var(--line-strong); }
+    .timeline-row { display: grid; grid-template-columns: 110px 1fr; gap: 1rem; padding: 1.35rem 0; border-bottom: 1px solid var(--line); }
+    .timeline-row time { font-family: var(--mono); font-size: .75rem; color: var(--accent); padding-top: .2rem; }
+    .timeline-row strong { display: block; margin-bottom: .25rem; }
+    .timeline-row span { color: var(--muted); }
+
+    .skills-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-top: 3.5rem;
+    }
+    .skill-group h3 { font-size: 1.1rem; margin: 0 0 1rem; }
+    .skill-list { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--line); }
+    .skill-list li { padding: .78rem 0; border-bottom: 1px solid var(--line); color: var(--muted); display: flex; justify-content: space-between; gap: 1rem; }
+    .skill-list li::after { content: "↗"; color: var(--accent); }
+    .credential-block { background: var(--accent-soft); padding: 2rem; margin-top: 3.5rem; display: grid; grid-template-columns: .7fr 1.3fr; gap: 2rem; }
+    .credential-block h3 { margin: 0; font-size: 1.6rem; }
+    .credential-list { margin: 0; padding-left: 1.15rem; columns: 2; column-gap: 2rem; }
+    .credential-list li { margin-bottom: .55rem; break-inside: avoid; }
+
+    .contact {
+      background: var(--navy);
+      color: var(--page);
+      padding: clamp(4.5rem, 9vw, 8rem) 0;
+    }
+    @media (prefers-color-scheme: dark) { .contact { background: #d7edf5; color: #102029; } }
+    .contact-grid { display: grid; grid-template-columns: 1.25fr .75fr; gap: 3rem; align-items: end; }
+    .contact h2 { font-size: clamp(3rem, 7vw, 6rem); line-height: .95; letter-spacing: -.055em; margin: 0; max-width: 760px; }
+    .contact p { opacity: .8; max-width: 620px; font-size: 1.15rem; }
+    .contact-actions { display: flex; flex-direction: column; align-items: flex-start; gap: .9rem; }
+    .contact .button { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .copy-status { min-height: 1.5em; font-size: .9rem; opacity: .85; }
+    footer { background: var(--navy); color: var(--page); border-top: 1px solid color-mix(in srgb, var(--page) 20%, transparent); }
+    @media (prefers-color-scheme: dark) { footer { background: #d7edf5; color: #102029; border-top-color: rgba(16,32,41,.2); } }
+    .footer-inner { width: min(1160px, calc(100% - 40px)); margin: auto; display: flex; justify-content: space-between; gap: 1rem; padding: 1.35rem 0; font-size: .85rem; opacity: .72; }
+
+    dialog {
+      width: min(760px, calc(100% - 28px));
+      max-height: min(82vh, 800px);
+      overflow: auto;
+      border: 1px solid var(--line-strong);
+      border-radius: 4px;
+      padding: 0;
+      color: var(--ink);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+    dialog::backdrop { background: rgba(5, 15, 20, .72); }
+    .dialog-head { position: sticky; top: 0; display: flex; justify-content: space-between; gap: 1rem; align-items: center; padding: 1.2rem 1.5rem; background: var(--paper); border-bottom: 1px solid var(--line); z-index: 2; }
+    .dialog-head strong { font-size: 1.1rem; }
+    .dialog-close { border: 1px solid var(--line); background: transparent; width: 40px; height: 40px; cursor: pointer; font-size: 1.5rem; line-height: 1; }
+    .dialog-body { padding: 1.7rem 1.5rem 2rem; }
+    .sample-note { font-family: var(--mono); font-size: .72rem; color: var(--accent); margin: 0 0 1.4rem; }
+    .dialog-body h3 { margin: 1.7rem 0 .5rem; font-size: 1.15rem; }
+    .dialog-body ol, .dialog-body ul { padding-left: 1.25rem; }
+    .dialog-body li { margin: .55rem 0; }
+    .callout { border-left: 4px solid var(--accent); background: var(--accent-soft); padding: 1rem 1.1rem; margin: 1.5rem 0; }
+    .matrix { border-top: 1px solid var(--line-strong); }
+    .matrix-row { display: grid; grid-template-columns: 120px 1fr; gap: 1rem; padding: .8rem 0; border-bottom: 1px solid var(--line); }
+    .matrix-row strong { font-family: var(--mono); font-size: .76rem; color: var(--accent); }
+
+    @media (max-width: 840px) {
+      .hero { min-height: auto; padding: 5.5rem 0 4.5rem; }
+      .hero-grid, .section-head, .profile-grid, .contact-grid { grid-template-columns: 1fr; }
+      .impact-panel { transform: none; max-width: 520px; }
+      .band-grid { grid-template-columns: 1fr 1fr; }
+      .band h2 { grid-column: 1 / -1; }
+      .case { grid-template-columns: 48px minmax(0, 1fr); gap: 1rem; }
+      .case-result { grid-column: 2; }
+      .sample-grid { grid-template-columns: 1fr; }
+      .sample { min-height: 250px; }
+      .sample h3 { margin-top: 1.8rem; }
+      .intro-shift { margin-left: 0; }
+      .skills-layout { gap: 2rem; }
+      .credential-block { grid-template-columns: 1fr; }
+      .contact-actions { margin-top: 1rem; }
+    }
+    @media (max-width: 620px) {
+      body { font-size: 16px; }
+      .wrap, .nav-inner, .footer-inner { width: min(100% - 28px, 1160px); }
+      .nav-inner { min-height: 54px; }
+      .nav-links a:nth-child(2), .nav-links a:nth-child(3) { display: none; }
+      h1 { font-size: clamp(3rem, 16vw, 4.7rem); }
+      .hero { padding-top: 4.5rem; }
+      .hero::before { width: 78vw; }
+      .band-grid { grid-template-columns: 1fr; gap: 1.35rem; }
+      .band h2 { grid-column: auto; }
+      .band-item { padding-left: 1rem; }
+      .case { grid-template-columns: 1fr; padding: 2rem 0; }
+      .case-result { grid-column: auto; }
+      .case-number { padding: 0; }
+      .skills-layout { grid-template-columns: 1fr; }
+      .credential-list { columns: 1; }
+      .timeline-row { grid-template-columns: 1fr; gap: .25rem; }
+      .footer-inner { flex-direction: column; }
+      .matrix-row { grid-template-columns: 1fr; gap: .25rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <nav class="site-nav" aria-label="Portfolio sections">
+    <div class="nav-inner">
+      <div class="nav-links">
+        <a href="#work">Work</a>
+        <a href="#samples">Samples</a>
+        <a href="#experience">Experience</a>
+      </div>
+      <button class="nav-cta nav-button" type="button" data-dialog="resume">View résumé</button>
+    </div>
+  </nav>
+
+  <main id="main">
+    <header class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="identity">BRANDON GREGORY · AUSTIN, TX</p>
+          <h1>I help schools adopt technology that actually gets used.</h1>
+          <p class="hero-deck">K–12 educator, campus technology leader, and customer advocate bringing 15 years of frontline experience to edtech customer success.</p>
+          <div class="hero-actions">
+            <a class="button" href="#work">View selected work
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a class="button secondary" href="mailto:Brandon.gregory.pro@gmail.com">Email Brandon</a>
+          </div>
+        </div>
+        <aside class="impact-panel" aria-label="Career highlights">
+          <h2>At a glance</h2>
+          <div class="stat"><strong>670+</strong><span>users supported across a campus community</span></div>
+          <div class="stat"><strong>15</strong><span>years serving schools, educators, and students</span></div>
+          <div class="stat"><strong>K–12</strong><span>perspective spanning classroom, campus, and district work</span></div>
+        </aside>
+      </div>
+    </header>
+
+    <div class="band">
+      <div class="wrap band-grid">
+        <h2>Where education meets customer success</h2>
+        <div class="band-item"><strong>ONBOARD</strong><span>Turn a rollout into a clear, supported first experience.</span></div>
+        <div class="band-item"><strong>ENABLE</strong><span>Help educators build confidence through practical training.</span></div>
+        <div class="band-item"><strong>ADOPT</strong><span>Translate platform capability into sustained classroom use.</span></div>
+      </div>
+    </div>
+
+    <section class="section" id="work">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="section-label">01 / SELECTED WORK</p>
+          <h2>Customer outcomes, built inside a real school.</h2>
+        </div>
+        <p class="section-intro intro-shift">These examples show the same muscles strong customer success teams use every day: listening closely, removing friction, teaching clearly, and staying with people after launch.</p>
+
+        <div class="cases">
+          <article class="case">
+            <div class="case-number">01</div>
+            <div>
+              <h3>Campus support operations for 670+ users</h3>
+              <p>Owned end-to-end campus IT operations and a Salesforce-based helpdesk. Triaged incidents, managed escalations, provisioned software and devices, and translated technical fixes for teachers, staff, administrators, and students.</p>
+              <div class="tag-row"><span class="tag">SALESFORCE</span><span class="tag">SUPPORT OPS</span><span class="tag">ESCALATION</span></div>
+            </div>
+            <div class="case-result">
+              <strong>Customer outcome</strong>
+              <p>A dependable point of contact who kept learning moving while giving non-technical users clear next steps.</p>
+            </div>
+          </article>
+
+          <article class="case">
+            <div class="case-number">02</div>
+            <div>
+              <h3>From software rollout to classroom adoption</h3>
+              <p>Led onboarding and enablement for STEM and CTE platforms: account provisioning, staff training, implementation support, and the follow-through educators needed to move from “logged in” to confident daily use.</p>
+              <div class="tag-row"><span class="tag">ONBOARDING</span><span class="tag">CHANGE MANAGEMENT</span><span class="tag">ADOPTION</span></div>
+            </div>
+            <div class="case-result">
+              <strong>Customer outcome</strong>
+              <p>New tools were supported as ongoing teaching practices—not treated as one-time launches.</p>
+            </div>
+          </article>
+
+          <article class="case">
+            <div class="case-number">03</div>
+            <div>
+              <h3>Adult learning designed for confidence</h3>
+              <p>As District PLC Leader and Department Chair, designed and delivered workshops and webinars on technical curriculum, data tracking, and software integration. Sessions centered real workflows, guided practice, and usable takeaways.</p>
+              <div class="tag-row"><span class="tag">CUSTOMER EDUCATION</span><span class="tag">FACILITATION</span><span class="tag">LXD</span></div>
+            </div>
+            <div class="case-result">
+              <strong>Customer outcome</strong>
+              <p>Educators left with a practical path from explanation to implementation—and a trusted person to ask next.</p>
+            </div>
+          </article>
+
+          <article class="case">
+            <div class="case-number">04</div>
+            <div>
+              <h3>Responsible AI brought into real classrooms</h3>
+              <p>Taught Foundations of AI and supported MagicSchool AI use, connecting emerging technology with instructional goals. Balanced experimentation with the concrete guidance educators need to use new tools purposefully.</p>
+              <div class="tag-row"><span class="tag">GENERATIVE AI</span><span class="tag">MAGICSCHOOL</span><span class="tag">ENABLEMENT</span></div>
+            </div>
+            <div class="case-result">
+              <strong>Customer outcome</strong>
+              <p>AI became an approachable instructional tool rather than another platform competing for attention.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section samples-section" id="samples">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="section-label">02 / WORK SAMPLES</p>
+          <h2>Clear guidance for the moments users get stuck.</h2>
+        </div>
+        <p class="section-intro intro-shift">Three representative artifacts demonstrate Brandon’s approach to onboarding, support, and customer education.</p>
+
+        <div class="sample-grid">
+          <article class="sample">
+            <span class="sample-index">SAMPLE 01</span>
+            <h3>First-week onboarding checklist</h3>
+            <p>A practical launch sequence for helping a teacher reach a meaningful first win without overwhelming them.</p>
+            <button class="text-button" type="button" data-dialog="onboarding">Open sample</button>
+          </article>
+          <article class="sample">
+            <span class="sample-index">SAMPLE 02</span>
+            <h3>Support triage playbook</h3>
+            <p>A simple framework for clarifying impact, setting urgency, and communicating what happens next.</p>
+            <button class="text-button" type="button" data-dialog="triage">Open sample</button>
+          </article>
+          <article class="sample">
+            <span class="sample-index">SAMPLE 03</span>
+            <h3>30-minute enablement session</h3>
+            <p>A workshop outline that moves quickly from “why this matters” to guided practice and an on-the-job action.</p>
+            <button class="text-button" type="button" data-dialog="training">Open sample</button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="experience">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="section-label">03 / EXPERIENCE</p>
+          <h2>An educator’s empathy. An operator’s follow-through.</h2>
+        </div>
+        <div class="profile-grid">
+          <div class="profile-copy">
+            <p><strong>Brandon understands the people edtech companies serve because he has spent his career beside them.</strong></p>
+            <p>His work spans classroom instruction, campus IT, district professional learning, technical curriculum, stakeholder coordination, and day-to-day support. That range creates a grounded customer-success perspective: listen before prescribing, make complexity useful, and measure success by what people can do next.</p>
+          </div>
+          <div class="timeline">
+            <div class="timeline-row">
+              <time>2011—NOW</time>
+              <div><strong>Harmony Public Schools · Austin, TX</strong><span>Technology Applications Specialist & Robotics Coach; AI/CTE Teacher; STEM Program Coordinator & Campus IT Manager</span></div>
+            </div>
+            <div class="timeline-row">
+              <time>2004—2009</time>
+              <div><strong>Journey Church · Kenosha, WI</strong><span>Program Director & Youth Operations Lead for weekly programs serving audiences of 250+ participants</span></div>
+            </div>
+            <div class="timeline-row">
+              <time>EDUCATION</time>
+              <div><strong>North Central University · Minneapolis, MN</strong><span>Bachelor of Arts</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section samples-section" id="skills">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="section-label">04 / CAPABILITIES</p>
+          <h2>Technical fluency, translated for humans.</h2>
+        </div>
+        <div class="skills-layout">
+          <div class="skill-group">
+            <h3>Customer success & enablement</h3>
+            <ul class="skill-list">
+              <li>Salesforce helpdesk administration</li>
+              <li>Client onboarding & adoption</li>
+              <li>Stakeholder communication</li>
+              <li>Technical training & facilitation</li>
+              <li>Change management</li>
+              <li>Account health awareness</li>
+            </ul>
+          </div>
+          <div class="skill-group">
+            <h3>EdTech & technical</h3>
+            <ul class="skill-list">
+              <li>LMS administration</li>
+              <li>LTI, SSO, rostering & SIS integrations</li>
+              <li>GoGuardian & MagicSchool AI</li>
+              <li>Device fleet & software provisioning</li>
+              <li>Python, JavaScript & HTML/CSS</li>
+              <li>Network & hardware troubleshooting</li>
+            </ul>
+          </div>
+        </div>
+        <div class="credential-block">
+          <h3>Credentials</h3>
+          <ul class="credential-list">
+            <li>Texas Educator Certification — Technology Applications (EC–12)</li>
+            <li>TIA Master Designated Teacher</li>
+            <li>MagicSchool AI Certified Educator — Level 2</li>
+            <li>Generative AI for Educators with Gemini</li>
+            <li>PLTW Gateway Certification</li>
+            <li>Formative Assessment & SLO Micro-Credentials</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="wrap contact-grid">
+        <div>
+          <h2>Let’s make the next rollout stick.</h2>
+          <p>Open to edtech customer success, implementation, enablement, and technical support opportunities.</p>
+        </div>
+        <div class="contact-actions">
+          <a class="button" href="mailto:Brandon.gregory.pro@gmail.com?subject=EdTech%20opportunity">Start a conversation</a>
+          <a class="text-button" href="https://www.linkedin.com/in/brandondgregory" target="_blank" rel="noopener noreferrer">View LinkedIn profile</a>
+          <button class="text-button" type="button" data-dialog="resume">View or download résumé</button>
+          <button class="text-button" type="button" id="copyEmail">Copy email address</button>
+          <span class="copy-status" id="copyStatus" aria-live="polite"></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner"><span>Brandon Gregory · Austin, Texas</span><span>EdTech customer success & enablement</span></div>
+  </footer>
+
+  <dialog id="onboarding" aria-labelledby="onboarding-title">
+    <div class="dialog-head"><strong id="onboarding-title">First-week onboarding checklist</strong><button class="dialog-close" type="button" aria-label="Close">×</button></div>
+    <div class="dialog-body">
+      <p class="sample-note">REPRESENTATIVE PORTFOLIO SAMPLE</p>
+      <div class="callout"><strong>Goal:</strong> By the end of week one, the educator can sign in, complete one core workflow, and knows exactly where to get help.</div>
+      <h3>Before launch</h3>
+      <ol>
+        <li>Confirm roster, permissions, device, browser, and SSO requirements.</li>
+        <li>Identify the educator’s immediate classroom goal—not every available feature.</li>
+        <li>Choose one realistic “first win” that can happen in under 15 minutes.</li>
+      </ol>
+      <h3>Guided first use</h3>
+      <ol>
+        <li>Model the workflow once in the educator’s own context.</li>
+        <li>Have the educator repeat it while narrating their choices.</li>
+        <li>Check understanding with a scenario, not a yes/no question.</li>
+      </ol>
+      <h3>Close the loop</h3>
+      <ul>
+        <li>Send a one-page recap with the three actions they will use first.</li>
+        <li>Make the support path visible and specific.</li>
+        <li>Follow up after real classroom use and address the first friction point.</li>
+      </ul>
+    </div>
+  </dialog>
+
+  <dialog id="triage" aria-labelledby="triage-title">
+    <div class="dialog-head"><strong id="triage-title">Support triage playbook</strong><button class="dialog-close" type="button" aria-label="Close">×</button></div>
+    <div class="dialog-body">
+      <p class="sample-note">REPRESENTATIVE PORTFOLIO SAMPLE</p>
+      <div class="callout"><strong>Principle:</strong> The user should never have to guess whether their issue was understood or what happens next.</div>
+      <div class="matrix">
+        <div class="matrix-row"><strong>1 · IMPACT</strong><span>Who is blocked, what can’t they do, and is learning or campus operation stopped?</span></div>
+        <div class="matrix-row"><strong>2 · SCOPE</strong><span>One person, one class, a group, or the whole campus? New issue or recurring pattern?</span></div>
+        <div class="matrix-row"><strong>3 · CONTEXT</strong><span>Capture device, browser, account role, exact error, timing, and steps already tried.</span></div>
+        <div class="matrix-row"><strong>4 · ACTION</strong><span>Resolve, route, or escalate with a concise record and clear owner.</span></div>
+        <div class="matrix-row"><strong>5 · UPDATE</strong><span>State what is known, what is being done, and when the user will hear back.</span></div>
+      </div>
+      <h3>Close-out message</h3>
+      <p>Explain the fix in plain language, confirm the user can complete the original task, and document the reusable learning for the next similar case.</p>
+    </div>
+  </dialog>
+
+  <dialog id="training" aria-labelledby="training-title">
+    <div class="dialog-head"><strong id="training-title">30-minute enablement session</strong><button class="dialog-close" type="button" aria-label="Close">×</button></div>
+    <div class="dialog-body">
+      <p class="sample-note">REPRESENTATIVE PORTFOLIO SAMPLE</p>
+      <div class="callout"><strong>Outcome:</strong> Participants leave able to complete one relevant workflow and choose where it fits in their work.</div>
+      <div class="matrix">
+        <div class="matrix-row"><strong>0–3 MIN</strong><span>Name the user problem and show the end state. Keep feature tours out of the opening.</span></div>
+        <div class="matrix-row"><strong>3–8 MIN</strong><span>Model one workflow while explaining the decision points, not every click.</span></div>
+        <div class="matrix-row"><strong>8–18 MIN</strong><span>Guided practice with a realistic scenario and visible checkpoints.</span></div>
+        <div class="matrix-row"><strong>18–25 MIN</strong><span>Independent attempt; facilitator watches for patterns and addresses common friction.</span></div>
+        <div class="matrix-row"><strong>25–30 MIN</strong><span>Commit to one next use, share the support route, and collect one confidence signal.</span></div>
+      </div>
+      <h3>Facilitation checks</h3>
+      <ul>
+        <li>Can participants explain when to use the workflow?</li>
+        <li>Can they complete it without following the facilitator click-for-click?</li>
+        <li>Do they know where to go when the workflow breaks?</li>
+      </ul>
+    </div>
+  </dialog>
+
+  <dialog id="resume" aria-labelledby="resume-title">
+    <div class="dialog-head"><strong id="resume-title">Brandon Gregory · Résumé</strong><button class="dialog-close" type="button" aria-label="Close">×</button></div>
+    <div class="dialog-body">
+      <p class="sample-note">EDTECH CUSTOMER SUCCESS · AUSTIN, TX</p>
+      <button class="button" type="button" id="downloadResume">Download résumé (.txt)</button>
+      <h3>Professional summary</h3>
+      <p>K–12 educator and campus technology leader with 15 years at Harmony Public Schools, now transitioning to edtech customer success. Experience in SaaS platform onboarding, user adoption, and Salesforce-based technical support for 670+ users, paired with a career of training adult learners.</p>
+      <h3>Core strengths</h3>
+      <p>Customer success and enablement · Salesforce helpdesk administration · Client onboarding · Platform adoption · Stakeholder communication · Change management · Technical training · LMS administration · LTI, SSO, rostering, and SIS integrations · Python, JavaScript, and HTML/CSS</p>
+      <h3>Harmony Public Schools · Austin, TX · 2011–Present</h3>
+      <p><strong>Technology Applications Specialist & Robotics Coach; AI/CTE Teacher; STEM Program Coordinator & Campus IT Manager</strong></p>
+      <ul>
+        <li>Own end-to-end IT operations and a Salesforce-based support helpdesk for 670+ users.</li>
+        <li>Lead platform onboarding and adoption for STEM and CTE software rollouts, from provisioning through ongoing enablement.</li>
+        <li>Serve as the primary technical point of contact for teachers, staff, administrators, and students.</li>
+        <li>Design and deliver professional development for adult learners as District PLC Leader and Department Chair.</li>
+        <li>Partner with district leadership, vendors, external organizations, and UT Austin research collaborators on K–12 computer science pathways.</li>
+      </ul>
+      <h3>Journey Church · Kenosha, WI · 2004–2009</h3>
+      <p><strong>Program Director & Youth Operations Lead</strong> — Directed weekly program operations for audiences of 250+ participants and facilitated leadership development for volunteer teams.</p>
+      <h3>Education & credentials</h3>
+      <p>Bachelor of Arts, North Central University · Texas Educator Certification, Technology Applications (EC–12) · TIA Master Designated Teacher · MagicSchool AI Certified Educator, Level 2 · Generative AI for Educators with Gemini · PLTW Gateway Certification</p>
+    </div>
+  </dialog>
+
+  <script>
+    (function () {
+      var triggers = document.querySelectorAll('[data-dialog]');
+      var dialogs = document.querySelectorAll('dialog');
+
+      triggers.forEach(function (trigger) {
+        trigger.addEventListener('click', function () {
+          var dialog = document.getElementById(trigger.getAttribute('data-dialog'));
+          if (dialog && typeof dialog.showModal === 'function') dialog.showModal();
+        });
+      });
+
+      dialogs.forEach(function (dialog) {
+        var close = dialog.querySelector('.dialog-close');
+        close.addEventListener('click', function () { dialog.close(); });
+        dialog.addEventListener('click', function (event) {
+          var rect = dialog.getBoundingClientRect();
+          var outside = event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom;
+          if (outside) dialog.close();
+        });
+      });
+
+      var copyButton = document.getElementById('copyEmail');
+      var copyStatus = document.getElementById('copyStatus');
+      copyButton.addEventListener('click', function () {
+        var email = 'Brandon.gregory.pro@gmail.com';
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(email).then(function () {
+            copyStatus.textContent = 'Email copied.';
+          }).catch(function () {
+            copyStatus.textContent = email;
+          });
+        } else {
+          copyStatus.textContent = email;
+        }
+      });
+
+      var downloadButton = document.getElementById('downloadResume');
+      downloadButton.addEventListener('click', function () {
+        var resume = [
+          'BRANDON GREGORY',
+          'Austin, TX | Brandon.gregory.pro@gmail.com',
+          '',
+          'PROFESSIONAL SUMMARY',
+          'K-12 educator and campus technology leader with 15 years at Harmony Public Schools, now transitioning to edtech customer success. Experience in SaaS platform onboarding, user adoption, and Salesforce-based technical support for 670+ users, paired with a career of training adult learners.',
+          '',
+          'CORE SKILLS',
+          'Customer success and enablement; Salesforce helpdesk administration; client onboarding; platform adoption; stakeholder communication; change management; technical training; LMS administration; LTI, SSO, rostering, and SIS integrations; Python; JavaScript; HTML/CSS.',
+          '',
+          'HARMONY PUBLIC SCHOOLS — AUSTIN, TX | 2011–PRESENT',
+          'Technology Applications Specialist & Robotics Coach; AI/CTE Teacher; STEM Program Coordinator & Campus IT Manager',
+          '- Own end-to-end IT operations and a Salesforce-based support helpdesk for 670+ users.',
+          '- Lead platform onboarding and adoption for STEM and CTE software rollouts, from provisioning through ongoing enablement.',
+          '- Serve as the primary technical point of contact for teachers, staff, administrators, and students.',
+          '- Design and deliver professional development for adult learners as District PLC Leader and Department Chair.',
+          '- Partner with district leadership, vendors, external organizations, and UT Austin research collaborators on K-12 computer science pathways.',
+          '',
+          'JOURNEY CHURCH — KENOSHA, WI | 2004–2009',
+          'Program Director & Youth Operations Lead',
+          '- Directed weekly program operations for audiences of 250+ participants and facilitated leadership development for volunteer teams.',
+          '',
+          'EDUCATION',
+          'Bachelor of Arts — North Central University',
+          '',
+          'CREDENTIALS',
+          'Texas Educator Certification — Technology Applications (EC-12); TIA Master Designated Teacher; MagicSchool AI Certified Educator — Level 2; Generative AI for Educators with Gemini; PLTW Gateway Certification; Formative Assessment & SLO Micro-Credentials.'
+        ].join('\n');
+        var blob = new Blob([resume], { type: 'text/plain;charset=utf-8' });
+        var link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'Brandon_Gregory_Resume_EdTech_CS.txt';
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(function () { URL.revokeObjectURL(link.href); }, 0);
+      });
+    }());
+  </script>
+</body>
+</html>
